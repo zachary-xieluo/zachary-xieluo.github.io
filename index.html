@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zachary Xie — Interactive Resume</title>
+  <meta name="description" content="Interactive, industry-style resume for GitHub Pages (HTML/CSS/JS)." />
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js for simple skill charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+
+    /* Smooth fade-in */
+    .fade-in { animation: fadeIn 0.6s ease 1; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    /* Active nav indicator */
+    .nav-active { color:#38bdf8; background-color: rgba(56,189,248,0.15); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+  <!-- FIXED DARK SIDEBAR (like your reference) -->
+  <aside class="hidden md:flex fixed left-0 top-0 h-screen w-[300px] bg-sky-950 text-white px-6 py-8 flex-col gap-6">
+    
+    <!-- Avatar + Name -->
+    <div class="flex flex-col items-center text-center gap-4">
+      
+      <!-- Avatar  -->
+      <img src="images/avatar.jpg" alt="Your photo"
+      class="w-48 h-48 rounded-full object-cover border-4 border-white/30 shadow-lg"/>
+      
+      <!-- Name -->
+      <h1 class="text-3xl font-extrabold tracking-wide text-white leading-tight">
+        Zachary Xie
+      </h1>
+      
+      <!-- Title -->
+      <p class="text-xl text-white/60 leading-snug -mt-3">
+        Business & Data Analyst
+      </p>
+      
+      <!-- Contact -->
+      <div class="mt-2 flex flex-col items-start space-y-1 text-base text-white/80">
+        <a href="mailto:xieluo0323@hotmail.com"
+           class="flex items-center gap-2 hover:text-white">
+          <i data-lucide="mail" class="w-5 h-5"></i>
+          xieluo0323@hotmail.com
+        </a>
+        <a href="tel:+61435793275"
+        class="flex items-center gap-2 hover:text-white">
+          <i data-lucide="phone" class="w-5 h-5"></i>
+      +61 435 793 275
+      </a>
+    </div>
+</div>
+
+    <!-- Nav -->
+    <nav class="mt-2 flex-1">
+      <ul id="sideNav" class="space-y-1 text-sm">
+        <li><a href="#about" class="flex items-center gap-3 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10"><i data-lucide="user"></i> About</a></li>
+        <li><a href="#skills" class="flex items-center gap-3 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10"><i data-lucide="sparkles"></i> Skills</a></li>
+        <li><a href="#experience" class="flex items-center gap-3 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10"><i data-lucide="briefcase"></i> Experience</a></li>
+        <li><a href="#projects" class="flex items-center gap-3 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10"><i data-lucide="layout"></i> Portfolio</a></li>
+        <li><a href="#education" class="flex items-center gap-3 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10"><i data-lucide="graduation-cap"></i> Education</a></li>
+      </ul>
+    </nav>
+
+    <!-- Social icons -->
+    <div class="flex items-center gap-3 text-white/70">
+      <a href="#" class="p-2 rounded-full bg-white/10 hover:bg-white/20"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+      <a href="#" class="p-2 rounded-full bg-white/10 hover:bg-white/20"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+      <a href="#" class="p-2 rounded-full bg-white/10 hover:bg-white/20"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+      <a href="#" class="p-2 rounded-full bg-white/10 hover:bg-white/20"><i data-lucide="github" class="w-4 h-4"></i></a>
+    </div>
+
+    <div class="text-xs text-white/50">© <span id="year"></span> Zachary Xie</div>
+  </aside>
+
+  <!-- MOBILE top bar (sidebar collapses on small screens) -->
+  <header class="md:hidden sticky top-0 z-10 bg-[#0b0f19] text-white px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="avatar.jpg" class="w-8 h-8 rounded-full object-cover border border-white/20"/>
+      <div class="text-sm font-semibold">Zachary Xie</div>
+    </div>
+    <button onclick="document.getElementById('mobileNav').classList.toggle('hidden')" class="p-2 rounded-lg bg-white/10">
+      <i data-lucide="menu" class="w-5 h-5"></i>
+    </button>
+  </header>
+  <nav id="mobileNav" class="md:hidden hidden bg-[#0b0f19] text-white px-4 pb-3">
+    <ul class="grid grid-cols-2 gap-2 text-sm">
+      <li><a href="#about" class="block px-3 py-2 rounded-lg bg-white/10">About</a></li>
+      <li><a href="#skills" class="block px-3 py-2 rounded-lg bg-white/10">Skills</a></li>
+      <li><a href="#experience" class="block px-3 py-2 rounded-lg bg-white/10">Experience</a></li>
+      <li><a href="#projects" class="block px-3 py-2 rounded-lg bg-white/10">Portfolio</a></li>
+      <li><a href="#education" class="block px-3 py-2 rounded-lg bg-white/10">Education</a></li>
+    </ul>
+  </nav>
+
+  <!-- RIGHT COLUMN CONTENT -->
+  <main class="md:pl-[320px] max-w-8xl mx-auto px-4 py-8 space-y-6">
+    
+
+    <!-- ABOUT -->
+      <section id="about" class="w-full h-screen overflow-hidden flex items-center justify-center -translate-y-12 border-b border-slate-300">
+
+        <div class="w-full max-w-6xl mx-auto px-6">
+          <h2 class="text-5xl font-extrabold tracking-tight">Hello, <span class="text-sky-600">I'm Zachary!</span></h2>
+          <div class="mt-3 flex flex-wrap items-center gap-4 text-slate-600 text-sm">
+            <span class="inline-flex items-center gap-2"><i data-lucide="map-pin"></i> Sydney · AU</span>
+            <span class="inline-flex items-center gap-2"> <i data-lucide="briefcase"></i> Healthcare | Pharma | Technology</span>
+          </div>
+
+          <div class="mt-4 text-black space-y-2"> 
+          <p class="text-lg leading-relaxed tracking-normal">
+            I'm a data-driven dusiness analyst with 4 years of experience, specialising in customer engagement, CRM analytics, and sales operations.
+          </p>
+          <p class="text-lg leading-relaxed tracking-normal">
+            I'm Skilled in R, Python, SQL, SAS, Power BI, Excel, PowerPoint to transform complex data into actionable insights.
+          </p>
+          <p class="text-lg leading-relaxed tracking-normal">
+            I led multiple projects from concept to implementation, collaborating with cross-functional stakeholders to define KPIs, build dashboards, and optimise engagement strategies. 
+          </p>
+          <p class="text-lg leading-relaxed tracking-normal">
+            I'm passionate about leveraging data storytelling to support decision-making and deliver measurable business impact. 
+          </p>
+        </div>          
+          
+          <div class="mt-4 flex items-center gap-3">
+            <a href="#" class="p-3 rounded-full bg-slate-200 hover:bg-slate-300"><i data-lucide="instagram"></i></a>
+            <a href="#" class="p-3 rounded-full bg-slate-200 hover:bg-slate-300"><i data-lucide="facebook"></i></a>
+            <a href="#" class="p-3 rounded-full bg-slate-200 hover:bg-slate-300"><i data-lucide="linkedin"></i></a>
+            <a href="#" class="p-3 rounded-full bg-slate-200 hover:bg-slate-300"><i data-lucide="github"></i></a>
+          </div>
+        </div>
+      </section>
+
+
+<!-- SKILLS -->
+<section id="skills" class="fade-in max-w-6xl mx-auto h-auto flex items-start py-6 border-b border-slate-300">
+  <div class="w-full px-2 md:px-4">
+
+    <!-- Title -->
+    <div class="mb-6">
+      <h2 class="text-4xl md:text-5xl font-extrabold tracking-wide">
+        <span class="text-slate-900">MY</span>
+        <span class="text-sky-600"> SKILLS</span>
+      </h2>
+      <div class="mt-2 h-1 w-16 bg-sky-500 rounded-full"></div>
+      <p class="mt-3 text-slate-500">Core tools I use across analytics, visualisation, reporting, and web collaboration.</p>
+    </div>
+
+    <!-- Technical Skills Subsection -->
+    <div class="mt-2 mb-6">
+      <h3 class="text-2xl mb-6 font-semibold text-slate-800">Technical Skills</h3>
+
+<!-- Buckets -->
+<div class="grid md:grid-cols-2 gap-6">
+
+  <!-- 1. Data Analytics -->
+  <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <h3 class="text-lg font-semibold text-slate-900 inline-flex items-center gap-2 mb-4">
+      <i data-lucide="database" class="w-5 h-5"></i> Data Analytics
+    </h3>
+
+    <!-- Python -->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">Python</span>
+        <span class="text-sm text-slate-500">80%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[80%]"></div>
+      </div>
+    </div>
+
+    <!-- R -->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">R</span>
+        <span class="text-sm text-slate-500">90%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[90%]"></div>
+      </div>
+    </div>
+
+    <!-- SQL -->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">SQL</span>
+        <span class="text-sm text-slate-500">80%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[80%]"></div>
+      </div>
+    </div>
+
+    <!-- SAS -->
+    <div>
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">SAS</span>
+        <span class="text-sm text-slate-500">70%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[70%]"></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2. Data Visualisation -->
+  <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <h3 class="text-lg font-semibold text-slate-900 inline-flex items-center gap-2 mb-4">
+      <i data-lucide="presentation" class="w-5 h-5"></i> Data Visualisation
+    </h3>
+
+    <!-- Power BI -->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">Power BI</span>
+        <span class="text-sm text-slate-500">90%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[90%]"></div>
+      </div>
+    </div>
+
+    <!-- Tableau -->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">Tableau</span>
+        <span class="text-sm text-slate-500">85%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[85%]"></div>
+      </div>
+    </div>
+
+    <!-- ggplot2 + Shiny -->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">ggplot2/Shiny</span>
+        <span class="text-sm text-slate-500">75%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[75%]"></div>
+      </div>
+    </div>
+
+    <!-- Quarto + closerad-->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">Quarto/closerad</span>
+        <span class="text-sm text-slate-500">70%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[70%]"></div>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- 3. Web Development & Collaboration -->
+  <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <h3 class="text-lg font-semibold text-slate-900 inline-flex items-center gap-2 mb-4">
+      <i data-lucide="code-2" class="w-5 h-5"></i> Web Development & Collaboration
+    </h3>
+
+    <!-- HTML/CSS/JavaScript -->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">HTML/CSS/JavaScript </span>
+        <span class="text-sm text-slate-500">70%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[70%]"></div>
+      </div>
+    </div>
+
+    <!-- Git/GitHub-->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">Git/GitHub</span>
+        <span class="text-sm text-slate-500">75%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[75%]"></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 4. Reporting & Presentation -->
+  <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <h3 class="text-lg font-semibold text-slate-900 inline-flex items-center gap-2 mb-4">
+      <i data-lucide="file-text" class="w-5 h-5"></i> Reporting & Presentation
+    </h3>
+
+    <!-- Excel -->
+    <div class="mb-3">
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">Excel</span>
+        <span class="text-sm text-slate-500">100%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[100%]"></div>
+      </div>
+    </div>
+
+    <!-- PowerPoint -->
+    <div>
+      <div class="flex justify-between mb-1">
+        <span class="text-sm text-slate-700 font-medium">PowerPoint</span>
+        <span class="text-sm text-slate-500">100%</span>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full">
+        <div class="h-2 bg-sky-500 rounded-full w-[100%]"></div>
+      </div>
+    </div>
+  </article>
+
+</div>
+  </div>
+  
+    <!-- Languages Subsection -->
+    <div class="mt-12 mb-6">
+      <h3 class="text-2xl font-semibold text-slate-800">Languages</h3>
+
+      <ul class="list-disc list-inside text-lg text-slate-700 space-y-2 mt-4">
+        <li><strong>English</strong> — Professional working proficiency</li>
+        <li><strong>Mandarin</strong> — Native proficiency</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- EXPERIENCE -->
+  <section id="experience" class="fade-in max-w-6xl mx-auto h-auto flex items-start py-10 border-b border-slate-300">
+    <div class="w-full overflow-auto px-2 md:px-4">
+
+      <!-- Top Title -->
+      <div class="mb-8">
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-wide">
+          <span class="text-slate-900">MY</span>
+          <span class="text-sky-600"> EXPERIENCE</span>
+        </h2>
+        <div class="mt-2 h-1 w-16 bg-sky-500 rounded-full"></div>
+        <p class="mt-3 text-slate-500">A look into my experience and career journey.</p>
+      </div>
+
+      <!-- Timeline container -->
+      <div class="relative pl-16">
+        
+        <!-- Left vertical line-->
+        <div class="absolute left-8 top-0 bottom-0 w-px bg-slate-300"></div>
+
+
+        <!-- === Experience 1 === -->
+        <article class="relative pb-12">
+
+          <!-- Tiltle + Date -->
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h3 class="text-2xl font-extrabold text-slate-900">
+              Career Break - MSc in Health Data Science 
+            </h3>
+            <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-sm">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              2024.02 → 2026.02
+            </span>
+          </div>
+
+          <!-- Company + Location -->
+          <div class="mt-2 flex flex-wrap items-center gap-4 text-slate-500 text-sm">
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="building-2" class="w-4 h-4"></i> University of New South Wales
+            </span>
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Sydney · Australia
+            </span>
+          </div>
+
+          <!-- Abstract -->
+          <div class="max-w-4xl">
+          <p class="mt-4 text-slate-700 text-base">
+            I’m currently studying the MSc in Health Data Science at UNSW and expect to graduate by the end of 2025.  
+            My working experiences in Pharamas inspired me to pursue health data science, where I aim to combine my industry background, data analytics skills, 
+            and storytelling techniques to deliver insights that drive better decisions. 
+          </p>
+          
+          <!-- Dissertation -->
+          <div class="mt-4">
+            <h4 class="text-black">I'm working on my dissertation (inprogress): 
+             Visualising Population Health and Sociodemographic Profiles 
+            in Western Sydney Local Health District Through Immersive Storytelling.</h4>
+
+            <ul class="mt-1 ml-6 list-disc text-slate-700 text-base space-y-1">
+              <li>Developing an interactive scrollytelling format using RStudio (Quarto + closeread) 
+              to present population health and sociodemographic profiles.</li>
+              <li>Integrating and analysing open-source datasets from Australian Bureau of Statistics.</li>
+              <li>Building interactive visualisations with structural narrative 
+              to make complex insights accessible for a wide audience.</li>
+            </ul>
+          </div>
+          </div>
+          
+
+          <!-- Lable -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Power BI</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">CRM</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">KPI</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">HCP</span>
+          </div>
+        </article>
+
+
+        <!-- === Experience 1 === -->
+        <article class="relative pb-12">
+
+          <!-- Tiltle + Date -->
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h3 class="text-2xl font-extrabold text-slate-900">
+              Business Data Analyst
+            </h3>
+            <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-sm">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              2020.10 → 2023.07
+            </span>
+          </div>
+
+          <!-- Company + Location -->
+          <div class="mt-2 flex flex-wrap items-center gap-4 text-slate-500 text-sm">
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="building-2" class="w-4 h-4"></i> Takeda (Multinational Pharma)
+            </span>
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Shanghai · China
+            </span>
+          </div>
+
+          <!-- Abstract -->
+          <div class="max-w-4xl">
+          <p class="mt-4 text-slate-700 text-base">
+            I worked in the digital innovation team affiliated to the central commercial excellence department 
+            to manage CRM and deliver Healthcare professional (HCP) digital engagement analytics solutions to business stakeholders.
+          </p>
+
+          <!-- Key Responsibilities -->
+          <div class="mt-4">
+            <h4 class="font-semibold text-black">Key Responsibilities:</h4>
+            <ul class="mt-1 ml-6 list-disc text-slate-700 text-base space-y-1">
+              <li>Collaborated with stakeholders to define and monitor KPIs for HCP digital engagement.</li>
+              <li>Designed and built dashboards in Power BI to track HCP activity and sales implementation performance.</li>
+              <li>Built and managed a CRM-integrated content channel, a key enabler of HCP digital engagement and omnichannel strategy.</li>
+              <li>Implemented automated data quality checks to improve reporting reliability.</li>
+            </ul>
+          </div>
+
+          <!-- Lable -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Power BI</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">CRM</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">KPI</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">HCP</span>
+          </div>
+         </div> 
+        </article>
+
+        <!-- === Experience 2 === -->
+        <article class="relative pb-12">
+
+          <!-- Tiltle + Date -->
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h3 class="text-2xl font-extrabold text-slate-900">
+              Content Analyst
+            </h3>
+            <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-sm">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              2019.07 → 2020.09
+            </span>
+          </div>
+
+          <!-- Company + Location -->
+          <div class="mt-2 flex flex-wrap items-center gap-4 text-slate-500 text-sm">
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="building-2" class="w-4 h-4"></i> Hengrui (China Leading Pharma)
+            </span>
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Shanghai · China
+            </span>
+          </div>
+
+          <!-- Abstract -->
+          <div class="max-w-4xl">
+          <p class="mt-4 text-slate-700 text-base">
+            I worked in the multi-channel medical communication team affiliated with the central marketing department 
+            to manage digital channels and develop in-person or online events to drive marketing communication.
+          </p>
+
+          <!-- Key Responsibilities -->
+          <div class="mt-4">
+            <h4 class="font-semibold text-black">Key Responsibilities:</h4>
+            <ul class="mt-1 ml-6 list-disc text-slate-700 text-base space-y-1">
+              <li>Managed and optimised the official digital media platform with 200K+ followers.</li>
+              <li>Analysed engagement performance data (open rate, CTR, share rate) to optimise content performance and improve user targeting. </li>
+              <li> Established 8 content columns covering all brand and coordinating with 100+ HCPs to generate content.</li>
+            </ul>
+          </div>
+
+          <!-- Lable -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Power BI</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">CRM</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">KPI</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">HCP</span>
+          </div>
+        </article>
+      
+      </div>
+    </div>
+  </section>
+
+
+    <!-- PROJECTS -->
+  <section id="projects" class="fade-in max-w-6xl mx-auto h-auto flex items-start py-10 border-b border-slate-300">
+    <div class="w-full overflow-auto px-2 md:px-4">
+
+      <!-- Top Title -->
+      <div class="mb-8">
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-wide">
+          <span class="text-slate-900"> MY </span>
+          <span class="text-sky-600"> PORTFOLIO </span>
+        </h2>
+        <div class="mt-2 h-1 w-16 bg-sky-500 rounded-full"></div>
+        <p class="mt-3 text-slate-500">A look into my portfolio.</p>
+      </div>
+
+
+        <!-- === Experience 1 === -->
+        <article class="relative pb-12">
+
+          <!-- Degree + Date -->
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h3 class="text-2xl font-extrabold text-slate-900">
+              TBD
+            </h3>
+            <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-sm">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              2024.02 → 2026.02
+            </span>
+          </div>
+
+          <!-- University + Location -->
+          <div class="mt-2 flex flex-wrap items-center gap-4 text-slate-500 text-sm">
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="graduation-cap" class="w-4 h-4"></i> University of New South Wales
+            </span>
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Sydney · Australia
+            </span>
+          </div>
+        </article>
+
+      </div>
+  </section>
+
+
+    <!-- EDUCATION -->
+  <section id="education" class="fade-in max-w-6xl mx-auto min-h-screen flex items-start pb-10 scroll-mt-40">
+    <div class="w-full overflow-auto px-2 md:px-4">
+
+      <!-- Top Title -->
+      <div class="mb-8">
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-wide">
+          <span class="text-sky-600"> EDUCATION </span>
+          <span class="text-slate-900"> BACKGROUND </span>
+        </h2>
+        <div class="mt-2 h-1 w-16 bg-sky-500 rounded-full"></div>
+        <p class="mt-3 text-slate-500">A look into my experience and career journey.</p>
+      </div>
+
+      <!-- Timeline container -->
+      <div class="relative pl-16">
+        
+        <!-- Left vertical line-->
+        <div class="absolute left-8 top-0 bottom-1 w-px bg-slate-300"></div>
+
+
+        <!-- === Experience 1 === -->
+        <article class="relative pb-12">
+
+          <!-- Degree + Date -->
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h3 class="text-2xl font-extrabold text-slate-900">
+              MSc in Health Data Science
+            </h3>
+            <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-sm">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              2024.02 → 2026.02
+            </span>
+          </div>
+
+          <!-- University + Location -->
+          <div class="mt-2 flex flex-wrap items-center gap-4 text-slate-500 text-sm">
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="graduation-cap" class="w-4 h-4"></i> University of New South Wales
+            </span>
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Sydney · Australia
+            </span>
+          </div>
+
+          <!-- Abstract -->
+          <div class="max-w-4xl">
+            
+          <!-- KeY courses -->
+          <div class="mt-4">
+            <h4 class="text-black"> <strong> Key courses: </strong> </h4>
+
+            <ul class="mt-1 ml-6 list-disc text-slate-700 text-base space-y-1">
+              <li> Database Systems, Machine Learning, Statistical Modelling </li> </ul>
+          </div>
+          </div>
+        </article>
+
+
+        <!-- === Experience 2 === -->
+        <article class="relative pb-12">
+
+          <!-- Degree + Date -->
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h3 class="text-2xl font-extrabold text-slate-900">
+              BSc in Pharmacy
+            </h3>
+            <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-sm">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              2015.09 → 2019.06
+            </span>
+          </div>
+
+          <!-- University + Location -->
+          <div class="mt-2 flex flex-wrap items-center gap-4 text-slate-500 text-sm">
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="graduation-cap" class="w-4 h-4"></i> Tianjin Medical University
+            </span>
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Tianjin · China
+            </span>
+          </div>
+
+         </div> 
+        </article>
+      </div>
+  </section>
+
+</main>
+
+
+
+  <script>
+    // Icons
+    lucide.createIcons();
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Skill chart
+    const ctx = document.getElementById('skillChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Python', 'SQL', 'Tableau', 'Power BI', 'Git', 'R'],
+          datasets: [{
+            label: 'Proficiency',
+            data: [90, 85, 88, 82, 80, 70],
+            fill: true,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: { r: { beginAtZero: true, max: 100 } },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    // Toggle embed
+    const toggleBtn = document.getElementById('toggleEmbed');
+    const embedWrap = document.getElementById('embedWrap');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => embedWrap.classList.toggle('hidden'));
+    }
+  </script>
+
+</body>
+</html>
+
