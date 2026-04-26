@@ -11,14 +11,15 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Chart.js for simple skill charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
   <style>
-
     /* Smooth fade-in */
     .fade-in { animation: fadeIn 0.6s ease 1; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
     /* Active nav indicator */
     .nav-active { color:#38bdf8; background-color: rgba(56,189,248,0.15); }
   </style>
+  
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
 
@@ -39,7 +40,7 @@
       
       <!-- Title -->
       <p class="text-xl text-white/60 leading-snug -mt-3">
-        Business & Data Analyst
+        Data Scientist
       </p>
       
       <!-- Contact -->
@@ -170,10 +171,10 @@
     <div class="mb-3">
       <div class="flex justify-between mb-1">
         <span class="text-sm text-slate-700 font-medium">Python</span>
-        <span class="text-sm text-slate-500">60%</span>
+        <span class="text-sm text-slate-500">80%</span>
       </div>
       <div class="h-2 bg-slate-100 rounded-full">
-        <div class="h-2 bg-sky-500 rounded-full w-[60%]"></div>
+        <div class="h-2 bg-sky-500 rounded-full w-[80%]"></div>
       </div>
     </div>
 
@@ -221,10 +222,10 @@
     <div class="mb-3">
       <div class="flex justify-between mb-1">
         <span class="text-sm text-slate-700 font-medium">Power BI</span>
-        <span class="text-sm text-slate-500">60%</span>
+        <span class="text-sm text-slate-500">70%</span>
       </div>
       <div class="h-2 bg-slate-100 rounded-full">
-        <div class="h-2 bg-sky-500 rounded-full w-[60%]"></div>
+        <div class="h-2 bg-sky-500 rounded-full w-[70%]"></div>
       </div>
     </div>
 
@@ -359,16 +360,71 @@
       </h3>
 
       <div class="relative">
+        
         <!-- === Experience 1 === -->
         <article class="relative pb-6">
           <!-- Title + Date -->
           <div class="flex items-start justify-between gap-4 flex-wrap">
             <h4 class="text-xl font-extrabold text-slate-900">
-              Career Break – MSc in Health Data Science
+              Data Scientist, Research Support
             </h4>
             <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-sm">
               <i data-lucide="calendar" class="w-4 h-4"></i>
-              2024.02 → 2026.02
+              2026.03 → Present
+            </span>
+          </div>
+
+          <!-- Company + Location -->
+          <div class="mt-2 flex flex-wrap items-center gap-4 text-slate-500 text-sm">
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="building-2" class="w-4 h-4"></i> HeartBug
+            </span>
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Sydney · Australia
+            </span>
+          </div>
+
+          <!-- Abstract -->
+          <div class="max-w-4xl">
+            <p class="mt-4 text-slate-700 text-base">
+              I worked in the R&D team within the ICT function, 
+              focusing on structuring physiological data and applying systematic analytical approaches to support modelling, 
+              hypothesis validation, and reproducible insights.
+            </p>
+
+            <!-- Key Responsibilities -->
+            <div class="mt-4">
+              <h5 class="font-semibold text-black">Key Responsibilities:</h5>
+              <ul class="mt-1 ml-6 list-disc text-slate-700 text-base space-y-1">
+                <li>Conducted cardiac and physiological data exploration and built foundational domain knowledge to support analytical modelling.</li>
+                <li>Reproduced and implemented research methods from published papers to validate analytical approaches.</li>
+                <li>Applied structured methodologies, including data preprocessing, exploratory analysis, and iterative model development.</li>
+                <li>Collaborated with technical leadership to align research objectives and deliver reproducible insights.</li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Labels -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Python</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">R</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">SQL</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Modelling</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Machine Learning</span>
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Database</span>
+          </div>
+        </article>
+        
+        <!-- === Experience 2 === -->
+        <article class="relative pb-6">
+          <!-- Title + Date -->
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h4 class="text-xl font-extrabold text-slate-900">
+              Career Break, MSc in Health Data Science
+            </h4>
+            <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-sm">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              2024.02 → 2026.01
             </span>
           </div>
 
@@ -404,7 +460,7 @@
           </div>
         </article>
 
-        <!-- === Experience 2 === -->
+        <!-- === Experience 3 === -->
         <article class="relative pb-6">
           <!-- Title + Date -->
           <div class="flex items-start justify-between gap-4 flex-wrap">
@@ -436,9 +492,10 @@
             <div class="mt-4">
               <h5 class="font-semibold text-black">Key Responsibilities:</h5>
               <ul class="mt-1 ml-6 list-disc text-slate-700 text-base space-y-1">
-                <li>Partnered with stakeholders to drive the definition of measurable and actionable KPIs aligned with business needs.</li>
-                <li>Designed and maintained BI dashboards to track customer behaviour and sales performance.</li>
-                <li>Built a CRM-integrated content channel, designing a content tagging ETL pipeline to improve data usability and analytical efficiency.</li>
+                <li>Delivered Sales Force Effectiveness analytics for 10+ brands through CRM data management, enabling customer engagement and commercial reporting.</li>
+                <li>Developed SQL queries to extract and prepare data for Power BI dashboards, providing leadership with visibility into customer segmentation and sales behaviour.</li>
+                <li>Built a CRM-integrated content channel and a content tagging ETL process to improve content data usability and analytical efficiency for downstream reporting.</li>
+                <li>Facilitated cross-functional workshops with IT, marketing, and sales stakeholders to strengthen collaboration and enhance digital capability across teams.</li>
               </ul>
             </div>
           </div>
@@ -453,11 +510,11 @@
           </div>
         </article>
 
-        <!-- === Experience 3 === -->
+        <!-- === Experience 4 === -->
         <article class="relative pb-2">
           <!-- Title + Date -->
           <div class="flex items-start justify-between gap-4 flex-wrap">
-            <h4 class="text-xl font-extrabold text-slate-900">Content Analyst</h4>
+            <h4 class="text-xl font-extrabold text-slate-900">Graduate Analyst</h4>
             <span class="inline-flex items-center gap-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-sm">
               <i data-lucide="calendar" class="w-4 h-4"></i>
               2019.07 → 2020.09
@@ -494,6 +551,7 @@
 
           <!-- Labels -->
           <div class="mt-4 flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Digital</span>
             <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Content</span>
             <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Marketing</span>
             <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-700 text-xs font-medium">Communication</span>
@@ -537,6 +595,15 @@
               This role helped me adapt quickly to a dynamic environment, collaborate effectively in teams, and better understand Australian workplace culture.
             </p>
           </div>
+
+            <!-- Key Responsibilities -->
+            <div class="mt-4">
+              <h5 class="font-semibold text-black">Key Responsibilities:</h5>
+              <ul class="mt-1 ml-6 list-disc text-slate-700 text-base space-y-1">
+                <li>Experienced in a fast-paced retail environment, managing grocery replenishment, product presentation, and stock organisation.</li>
+                <li>Operated with front checkout operations, working closely with team members to deliver customer service.</li>
+              </ul>
+            </div>
 
           <!-- Labels -->
           <div class="mt-4 flex flex-wrap gap-2">
